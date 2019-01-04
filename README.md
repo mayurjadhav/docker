@@ -9,9 +9,10 @@ Prerequisite
 
 Installation
 
-1. Unzip the file 
-2. Cd into the directory
-3. Create directory alm-drupal/docroot
-3. Copy the application files into alm-docroot/docroot/ 
-4. Run the command “docker-compose up”
-5. Open browser and it hit http://localhost:80
+1. Download the docker from this repositiory
+2. Unzip the file 
+3. Cd into the directory
+4. Create directory alm-drupal/docroot
+5. Copy the application files into alm-docroot/docroot/ 
+6. Run the command “docker-compose up”
+7. Open browser and it hit http://localhost:80
