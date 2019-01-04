@@ -1,0 +1,11 @@
+deb http://mirrors.linode.com/debian/ jessie main contrib non-free
+deb-src http://mirrors.linode.com/debian/ jessie main contrib non-free
+
+# jessie-updates, previously known as 'volatile'
+deb http://mirrors.linode.com/debian/ jessie-updates main contrib non-free
+deb-src http://mirrors.linode.com/debian/ jessie-updates main contrib non-free
+
+
+deb http://mirrors.digitalocean.com/ubuntu trusty main multiverse
+deb http://mirrors.digitalocean.com/ubuntu  trusty-updates main multiverse
+deb http://security.ubuntu.com/ubuntu  trusty-security main multiverse

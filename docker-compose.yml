@@ -1,0 +1,61 @@
+version: '2'
+volumes:
+  solrdata:
+  db_data:
+services:
+  redis:
+    build: ./docker-utils/redis/.
+    ports:
+      - "6379:6379"
+    volumes: 
+      - ./docker-utils/redis/redis.conf:/etc/redis.conf
+      - ./redisdata:/var/lib/redis
+  db:
+    # build: 
+    image: percona:5.6
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker-utils/mysql/conf.d:/etc/mysql/conf.d
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: srijan@test
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: srijan@test
+      MYSQL_DATABASE: dev
+
+  proxy:
+    image: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes: 
+      - ./docker-utils/nginx/conf.d:/etc/nginx/conf.d/
+    links: 
+      - web
+    depends_on: 
+      - web
+  web:
+    build: .
+    ports:
+      - "81:81"
+      - "9000:9000"
+      - "8025:8025"
+      - "49100:22"
+    links:
+      - db
+      - redis
+    networks:
+      default:
+        aliases:
+          - dev.local
+    volumes: 
+      - ~/.drush/:/root/.drush/
+      - ./docker-utils/apache2/sites/:/etc/apache2/sites-enabled/
+      - ./docker-utils/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./docker-utils/rsyslog/rsyslog.conf/:/etc/rsyslog.conf/
+      - ~/.acquia/:/root/.acquia/
+      - ../alm-drupal/docroot/:/var/www/html/
+      - ~/.ssh:/root/.ssh
+
+    
